@@ -1,0 +1,1835 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" href="/img/favicon.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="bendan">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="简单化的理解">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Linux 概述">
+<meta property="og:url" content="http://bendan.github.io/2022/04/02/Linux/index.html">
+<meta property="og:site_name" content="bendan">
+<meta property="og:description" content="简单化的理解">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2022-04-02T03:43:47.657Z">
+<meta property="article:modified_time" content="2022-04-02T03:46:41.999Z">
+<meta property="article:author" content="bendan">
+<meta name="twitter:card" content="summary_large_image">
+  
+  
+  <title>Linux 概述 - bendan</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4/github-markdown.min.css" />
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/hint.css@2/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.css" />
+  
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"bendan.github.io","root":"/","version":"1.8.14","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":true},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 6.1.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>笨蛋大雄</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              &nbsp;<i class="iconfont icon-search"></i>&nbsp;
+            </a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/img/default.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="Linux 概述">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2022-04-02 11:43" pubdate>
+        2022年4月2日 中午
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      25k 字
+    </span>
+  
+
+  
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      212 分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">Linux 概述</h1>
+            
+            <div class="markdown-body">
+              <p><a target="_blank" rel="noopener" href="https://blog.csdn.net/liu17234050/article/details/108947343">https://blog.csdn.net/liu17234050/article/details/108947343</a></p>
+<h1 id="Linux"><a href="#Linux" class="headerlink" title="Linux"></a>Linux</h1><h2 id="1-0-Linux概述"><a href="#1-0-Linux概述" class="headerlink" title="1.0 Linux概述"></a>1.0 Linux概述</h2><h3 id="1-1-Linux的学习方向"><a href="#1-1-Linux的学习方向" class="headerlink" title="1.1 Linux的学习方向"></a>1.1 Linux的学习方向</h3><blockquote>
+<p>Linux运维工程师</p>
+</blockquote>
+<p>对服务器的管理，对服务器安全的保障</p>
+<blockquote>
+<p>Linux嵌入工程师</p>
+</blockquote>
+<p>在Linux系统下做驱动开发</p>
+<blockquote>
+<p>在Linux下开发程序</p>
+</blockquote>
+<p>如何将程序在部署在Linux下，并实现运行的环境</p>
+<ul>
+<li>JavaEE</li>
+<li>大数据</li>
+<li>Python</li>
+<li>PHP</li>
+<li>C&#x2F;C++</li>
+</ul>
+<p><strong>这部分的学习基本是必须的</strong></p>
+<h3 id="1-2应用领域"><a href="#1-2应用领域" class="headerlink" title="1.2应用领域"></a>1.2应用领域</h3><blockquote>
+<p>个人桌面的应用领域</p>
+</blockquote>
+<p>Linux的此领域较为薄弱，传统Linux由于界面简单，操作复杂，应用软件少的缺陷，一直被Windows所压制近些年随着ububtu，Fedora等优秀桌面环境的兴起，同时各大硬件厂商支持的加大，Linux在个人桌面的占有率在逐渐的提高</p>
+<p><em>Linux的桌面一般是用于后台应用的管理</em></p>
+<blockquote>
+<p>服务器领域</p>
+</blockquote>
+<p>Linux在服务器领域的应用是最强的</p>
+<p>Linux<strong>免费，稳定，高效率</strong>等特点在这里得到了很好的体现，近些年Linux服务器市场得到了飞速的提升，尤其是在一些高端领域较为广泛</p>
+<blockquote>
+<p>嵌入式领域</p>
+</blockquote>
+<p>近些年，Linux在嵌入式领域的应用得到了飞速的提高</p>
+<p>Linux<strong>运行稳定，对网络的良好支持性，低成本</strong>，且可以根据需要<strong>进行软件裁剪</strong>内核最小可以达到kb等特点，使其近些年在嵌入式领域的应用得到了非常大的提高。</p>
+<p>主要应用，机顶盒，数字电视，网络电话，程控交换机，手机，PDA，智能家居，智能硬件等都是其应用领域，以后在<strong>物联网</strong>的应用会更广泛。</p>
+<p><em>安卓的内核是Linux</em></p>
+<h2 id="2-0Linux基础篇（入门）"><a href="#2-0Linux基础篇（入门）" class="headerlink" title="2.0Linux基础篇（入门）"></a>2.0Linux基础篇（入门）</h2><p>###2.1介绍</p>
+<blockquote>
+<p>Linux是一款操作系统，<strong>免费，开源，安全，高效，稳定，处理高并发非常强悍</strong>。</p>
+</blockquote>
+<p>因自身稳定，基本无需重启</p>
+<p>适用于企业级项目的部署，以及Unix操作系统</p>
+<blockquote>
+<p>Linux创始人：Linus Torvalds  林纳斯</p>
+</blockquote>
+<blockquote>
+<p>Linux吉祥物：企鹅   Tux</p>
+</blockquote>
+<p>一般的技术一般会存在一个吉祥物</p>
+<blockquote>
+<p>主要发行版本</p>
+</blockquote>
+<p>Linux是一个内核，不同的厂商会据此编写，生成了不同的版本。</p>
+<p>我们所说的Linux其实指的即是这个内核。</p>
+<p>我们谈的应用应该是指此下的不同版本</p>
+<ul>
+<li>CentOSE  开源</li>
+<li>Redhat </li>
+<li>Ubuntu</li>
+<li>Suse</li>
+<li>红旗Linux   国产</li>
+</ul>
+<blockquote>
+<p>目前的主要操作系统</p>
+</blockquote>
+<ul>
+<li>Windows</li>
+<li>Android</li>
+<li>车载系统</li>
+<li>Linux</li>
+</ul>
+<h3 id="2-2Linux与Unix的关系"><a href="#2-2Linux与Unix的关系" class="headerlink" title="2.2Linux与Unix的关系"></a>2.2Linux与Unix的关系</h3><h4 id=""><a href="#" class="headerlink" title=""></a></h4><blockquote>
+<p>70年代</p>
+</blockquote>
+<p>在贝尔实验室中，Ken tompson  利用B语言在分布式操作系统上重新开发出了Unix。</p>
+<p>后与Dennis richres 合力开发出C语言，并用C语言重新编写Unix。</p>
+<blockquote>
+<p>80年代</p>
+</blockquote>
+<p>各大厂商在Unix的基础上开发了各自的操作系统</p>
+<p>但是开发过后的系统不开源，且对服务器性能要求较高</p>
+<blockquote>
+<p>Richard Stallman 提出人机对话理论，GNU计划</p>
+</blockquote>
+<p>人-&gt;<strong>应用软件-&gt;shell-&gt;操作系统</strong>-&gt;硬件           </p>
+<p>此操作系统即为Linux，其为GUN计划的一部分。</p>
+<h3 id="2-3Linux与Windows的比较"><a href="#2-3Linux与Windows的比较" class="headerlink" title="2.3Linux与Windows的比较"></a>2.3Linux与Windows的比较</h3><table>
+<thead>
+<tr>
+<th>比较</th>
+<th>Windows</th>
+<th>Linux</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>免费&#x2F;收费</td>
+<td>收费昂贵</td>
+<td>免费或少量收费</td>
+</tr>
+<tr>
+<td>软件与支持</td>
+<td>数量与质量高，但多数收费；由微软官方提供支持与服务</td>
+<td>开源自由软件，用户可以修改定制和再发布，由于基本免费，部分软件质量和体验欠缺；由全球的Linux开发商和软件社区提供支持</td>
+</tr>
+<tr>
+<td>安全性</td>
+<td>更新快，且会中病毒与木马</td>
+<td>安全性相比较高</td>
+</tr>
+<tr>
+<td>使用习惯</td>
+<td>图形界面，基本依靠鼠标与键盘</td>
+<td>兼备图形界面与完全命令行操作，可以只用键盘操作，入门困难，但执行效率高</td>
+</tr>
+<tr>
+<td>可定制性</td>
+<td>封闭的，可定制性极差</td>
+<td>开源，可定制性极高</td>
+</tr>
+<tr>
+<td>应用场景</td>
+<td>桌面操作系统</td>
+<td>支撑百度，谷歌，淘宝应用软件和服务的，是后台城墙是我的服务器主机，世界上大部分软件与服务都在Linux上运行</td>
+</tr>
+</tbody></table>
+<h3 id="2-4VM与Linux（CentOS）的安装"><a href="#2-4VM与Linux（CentOS）的安装" class="headerlink" title="2.4VM与Linux（CentOS）的安装"></a>2.4VM与Linux（CentOS）的安装</h3><blockquote>
+<p>基本说明</p>
+</blockquote>
+<p>学习Linux需要一个环境，即我们需要创建一个虚拟机，然后在虚拟机上安装一个CentOS系统来学习。</p>
+<ul>
+<li>先安装virtual machine ，vm12</li>
+<li>再安装Linux（CentOS 6.8）</li>
+</ul>
+<blockquote>
+<p>关系</p>
+</blockquote>
+<p>在windows中安装VM软件，VM会开辟出一片虚拟机空间，在空间内安装CentOS。</p>
+<p>windows即为本机，母机</p>
+<p>CentOS实质是文件夹，即可将其迁移到其他主机上的VM软件中，仍可以正常运行</p>
+<h4 id="2-4-1VM安装"><a href="#2-4-1VM安装" class="headerlink" title="2.4.1VM安装"></a>2.4.1VM安装</h4><blockquote>
+<p>去BIOS中去修改设置开启虚拟化设备支持</p>
+</blockquote>
+<p>一般自动开启</p>
+<blockquote>
+<p>安装VM12</p>
+</blockquote>
+<p>直接安装</p>
+<p>####2.4.2CentOS安装</p>
+<blockquote>
+<p>创建虚拟机空间</p>
+</blockquote>
+<blockquote>
+<p>安装CentOS</p>
+</blockquote>
+<p>用户是root</p>
+<p>密码020819</p>
+<h4 id="2-4-3CentOS的使用和联网"><a href="#2-4-3CentOS的使用和联网" class="headerlink" title="2.4.3CentOS的使用和联网"></a>2.4.3CentOS的使用和联网</h4><blockquote>
+<p>终端的使用</p>
+</blockquote>
+<p>点击鼠标右键。即打开终端</p>
+<blockquote>
+<p>联网，配置网络</p>
+</blockquote>
+<p>点击右上角的电脑图标即可，选择eth：0，即可连接成功</p>
+<h4 id="2-4-4安装vmtools"><a href="#2-4-4安装vmtools" class="headerlink" title="2.4.4安装vmtools"></a>2.4.4安装vmtools</h4><p>vmtools的功能</p>
+<blockquote>
+<p>直接粘贴命令在Windows和CentOS系统</p>
+<p>可以设置Windows和CentOS的共享文件夹</p>
+</blockquote>
+<p>vmtools的安装与使用</p>
+<ul>
+<li>进入CentOS</li>
+<li>点击VM菜单的-&gt;install VMware tools</li>
+<li>CentOS会出现一个VM的安装包</li>
+<li>点击右键解压，得到一个安装文件</li>
+<li>进入该vm解压的目录，改文件在&#x2F;root&#x2F;桌面&#x2F;VMware-tools-distrib&#x2F;下</li>
+<li>安装.&#x2F;vmware-install.pl</li>
+<li>全部使用默认设置即可</li>
+<li>需要reboot重新启动即可生效</li>
+</ul>
+<p>共享文件夹</p>
+<blockquote>
+<p>为了方便，可以设置一个共享文件夹，比如d:&#x2F;share</p>
+</blockquote>
+<p>具体步骤</p>
+<ul>
+<li>菜单-&gt;vm-&gt;setting     注意：设置选项为always enable</li>
+<li>Windows和CentOS可共享d：&#x2F;share目录      可以读写文件了</li>
+<li>在CentOS的 &#x2F;mnt&#x2F;hgfs&#x2F;下</li>
+</ul>
+<blockquote>
+<p>Ctrl+空格  切换中英文</p>
+</blockquote>
+<p>###2.5Linux的目录结构</p>
+<blockquote>
+<p>Linux只有一个根目录，与Windows多根目录不同</p>
+</blockquote>
+<p>LInux的文件系统采用的是层级的树状目录结构，在此结构中的最上方是根目录“&#x2F;”，然后在此目录下再创建其他的目录</p>
+<p><strong>在Linux中一切皆文件</strong></p>
+<p>硬件也为会被文件映射</p>
+<p><strong>文件介绍</strong></p>
+<blockquote>
+<p>&#x2F;：根目录，位于Linux文件系统目录结构的顶层，一般根目录下只存放目录，不要存放文件，&#x2F;etc、&#x2F;bin、&#x2F;dev、&#x2F;lib、&#x2F;sbin应该和根目录放置在一个分区中。</p>
+<p>&#x2F;bin，&#x2F;usr&#x2F;bin：该目录为命令文件目录，也称为二进制目录。包含了供系统管理员及普通用户使用的重要的linux命令和二进制（可执行）文件，包含shell解释器等。</p>
+<p>&#x2F;boot： 该目录中存放系统的内核文件和引导装载程序文件，&#x2F;boot&#x2F;vmlinuz为linux的内核文件，以及&#x2F;boot&#x2F;gurb。建议单独分区，分区大小100M即可。</p>
+<p>&#x2F;dev： 设备（device）文件目录，存放linux系统下的设备文件，访问该目录下某个文件，相当于访问某个设备，存放连接到计算机上的设备（终端、磁盘驱动器、光驱及网卡等）的对应文件，包括字符设备和块设备等，常用的是挂载光驱mount &#x2F;dev&#x2F;cdrom&#x2F;mnt。 </p>
+<p>&#x2F;etc： 系统配置文件存放的目录，该目录存放系统的大部分配置文件和子目录，不建议在此目录下存放可执行文件，重要的配置文件有&#x2F;etc&#x2F;inittab、&#x2F;etc&#x2F;fstab、&#x2F;etc&#x2F;init.d、&#x2F;etc&#x2F;X11（X Window系统有关）、&#x2F;etc&#x2F;sysconfig（与网络有关）、&#x2F;etc&#x2F;xinetd.d修改配置文件之前记得备份。该目录下的文件由系统管理员来使用，普通用户对大部分文件有只读权限。</p>
+<p>&#x2F;home： 系统默认的用户宿主目录，新增用户账号时，用户的宿主目录都存放在此目录下，<del>表示当前用户的宿主目录，</del>test表示用户test的宿主目录。建议单独分区，并设置较大的磁盘空间，方便用户存放数据。</p>
+<p>&#x2F;lib，&#x2F;usr&#x2F;lib，&#x2F;usr&#x2F;local&#x2F;lib：系统使用的函数库的目录，程序在执行过程中，需要调用一些额外的参数时需要函数库的协助，该目录下存放了各种编程语言库。典型的linux系统包含了C、C++和FORTRAN语言的库文件。&#x2F;lib目录下的库映像文件可以用来启动系统并执行一些命令，目录&#x2F;lib&#x2F;modules包含了可加载的内核模块，&#x2F;lib目录存放了所有重要的库文件，其他的库文件则大部分存放在&#x2F;usr&#x2F;lib目录下。</p>
+<p>&#x2F;lost+fount： 在EXT2或EXT3文件系统中，当系统意外崩溃或机器意外关机，产生的一些文件碎片放在这里。在系统启动的过程中fsck工具会检查这里，并修复已经损坏的文件系统。有时系统发生问题，有很多的文件被移到这个目录中，可能会用手工的方法来修复，或者移动文件到运来的位置上</p>
+<p>&#x2F;mnt，&#x2F;media： mnt目录主要用来临时挂载文件系统，为某些设备提供默认挂载点，如floppy，cdrom。这样当挂载了一个设备如光驱时，就可以通过访问目录&#x2F;mnt&#x2F;cdrom下的文件来访问相应的光驱上的文件了。</p>
+<p>&#x2F;opt： 给主机额外安装软件所摆放的目录。如：FC4使用的Fedora 社群开发软件，如果想要自行安装新的KDE 桌面软件，可以将该软件安装在该目录下。以前的 Linux 系统中，习惯放置在 &#x2F;usr&#x2F;local 目录下。</p>
+<p>&#x2F;proc： 此目录的数据都在内存中，如系统核心，外部设备，网络状态，由于数据都存放于内存中，所以不占用磁盘空间，比较重要的目录有&#x2F;proc&#x2F;cpuinfo、&#x2F;proc&#x2F;interrupts、&#x2F;proc&#x2F;dma、&#x2F;proc&#x2F;ioports、&#x2F;proc&#x2F;net&#x2F;*等。</p>
+<p>&#x2F;root：系统管理员root的宿主目录，系统第一个启动的分区为&#x2F;，所以最好将&#x2F;root和&#x2F;放置在一个分区下。</p>
+<p>&#x2F;sbin，&#x2F;usr&#x2F;sbin，&#x2F;usr&#x2F;local&#x2F;sbin：放置系统管理员使用的可执行命令，如fdisk、shutdown、mount等。与&#x2F;bin不同的是，这几个目录是给系统管理员root使用的命令，一般用户只能”查看”而不能设置和使用。</p>
+<p>&#x2F;tmp： 一般用户或正在执行的程序临时存放文件的目录,任何人都可以访问,重要数据不可放置在此目录下。</p>
+<p>&#x2F;srv： 服务启动之后需要访问的数据目录，如www服务需要访问的网页数据存放在&#x2F;srv&#x2F;www内。</p>
+<p>&#x2F;usr： 应用程序存放目录，&#x2F;usr&#x2F;bin 存放应用程序， &#x2F;usr&#x2F;share 存放共享数据，&#x2F;usr&#x2F;lib 存放不能直接运行的，却是许多程序运行所必需的一些函数库文件，&#x2F;usr&#x2F;local 存放软件升级包，&#x2F;usr&#x2F;share&#x2F;doc 系统说明文件存放目录。</p>
+<p>&#x2F;usr&#x2F;share&#x2F;man:  程序说明文件存放目录，使用 man ls时会查询&#x2F;usr&#x2F;share&#x2F;man&#x2F;man1&#x2F;ls.1.gz的内容建议单独分区，设置较大的磁盘空间。</p>
+<p>&#x2F;var： 放置系统执行过程中经常变化的文件，如随时更改的日志文件 &#x2F;var&#x2F;log。&#x2F;var&#x2F;log&#x2F;message： 所有的登录文件存放目录。&#x2F;var&#x2F;spool&#x2F;mail： 邮件存放的目录。 &#x2F;var&#x2F;run: 程序或服务启动后。建议单独分区，设置较大的磁盘空间。</p>
+<p>&#x2F;tmp：存放临时文件目录，一些命令和应用程序会用的到这个目录。该目录下的所有文件会被定时删除，以避免临时文件占满整个磁盘。</p>
+<p>&#x2F;dev目录</p>
+<p>dev是设备(device)的英文缩写。&#x2F;dev这个目录对所有的用户都十分重要。因为在这个目录中包含了所有Linux系统中使用的外部设备。但是这里并不是放的外部设备的驱动程序，这一点和windows,dos操作系统不一样。它实际上是一个访问这些外部设备的端口。我们可以非常方便地去访问这些外部设备，和访问一个文件，一个目录没有任何区别。</p>
+<p>Linux沿袭Unix的风格，将所有设备认成是一个文件。</p>
+<p>设备文件分为两种：块设备文件(b)和字符设备文件(c)，设备文件一般存放在&#x2F;dev目录下，对常见设备文件作如下说明：</p>
+<p>&#x2F;dev&#x2F;hd[a-t]：IDE设备</p>
+<p>&#x2F;dev&#x2F;sd[a-z]：SCSI设备</p>
+<p>&#x2F;dev&#x2F;fd[0-7]：标准软驱</p>
+<p>&#x2F;dev&#x2F;md[0-31]：软raid设备</p>
+<p>&#x2F;dev&#x2F;loop[0-7]：本地回环设备</p>
+<p>&#x2F;dev&#x2F;ram[0-15]：内存</p>
+<p>&#x2F;dev&#x2F;null：无限数据接收设备,相当于黑洞</p>
+<p>&#x2F;dev&#x2F;zero：无限零资源</p>
+<p>&#x2F;dev&#x2F;tty[0-63]：虚拟终端</p>
+<p>&#x2F;dev&#x2F;ttyS[0-3]：串口</p>
+<p>&#x2F;dev&#x2F;lp[0-3]：并口</p>
+<p>&#x2F;dev&#x2F;console：控制台</p>
+<p>&#x2F;dev&#x2F;fb[0-31]：framebuffer</p>
+<p>&#x2F;dev&#x2F;cdrom &#x3D;&gt; &#x2F;dev&#x2F;hdc</p>
+<p>&#x2F;dev&#x2F;modem &#x3D;&gt; &#x2F;dev&#x2F;ttyS[0-9]</p>
+<p>&#x2F;dev&#x2F;pilot &#x3D;&gt; &#x2F;dev&#x2F;ttyS[0-9]</p>
+<p>&#x2F;dev&#x2F;random：随机数设备</p>
+<p>&#x2F;dev&#x2F;urandom：随机数设备</p>
+<p>&#x2F;etc目录</p>
+<p>&#x2F;etc&#x2F;rc，&#x2F;etc&#x2F;rc.d，&#x2F;etc&#x2F;rc*.d 启动、或改变运行级时运行的scripts或scripts的目录。</p>
+<p>&#x2F;etc&#x2F;passwd 用户数据库，其中的域给出了用户名、真实姓名、家目录、加密的口令和用户的其他信息。</p>
+<p>&#x2F;etc&#x2F;fstab 启动时mount -a命令(在&#x2F;etc&#x2F;rc 或等效的启动文件中)自动mount的文件系统列表。Linux下，也包括用swapon -a启用的swap区的信息。</p>
+<p>&#x2F;etc&#x2F;group 类似&#x2F;etc&#x2F;passwd ，但说明的不是用户而是用户组。</p>
+<p>&#x2F;etc&#x2F;inittab init 的配置文件，设定系统启动时init进程将把系统设置成什么样的runlevel 。</p>
+<p>&#x2F;etc&#x2F;issue getty 在登录提示符前的输出信息.通常包括系统的一段短说明或欢迎信息内容由系统管理员确定。</p>
+<p>&#x2F;etc&#x2F;motd Message Of The Day，成功登录后自动输出内容由系统管理员确定，经常用于通告信息，如计划关机时间的警告。</p>
+<p>&#x2F;etc&#x2F;mtab 当前安装的文件系统列表.由scripts初始化，并由mount 命令自动更新，需要一个当前安装的文件系统的列表时使用，例如df 命令。</p>
+<p>&#x2F;etc&#x2F;shadow 在安装了影子口令软件的系统上的影子口令文件.影子口令文件将&#x2F;etc&#x2F;passwd 文件中的加密口令移动到&#x2F;etc&#x2F;shadow 中，而后者只对root可读这使破译口令更困难.</p>
+<p>&#x2F;etc&#x2F;login.defs login 命令的配置文件。</p>
+<p>&#x2F;etc&#x2F;printcap 类似&#x2F;etc&#x2F;termcap ，但针对打印机语法不同。</p>
+<p>&#x2F;etc&#x2F;profile , &#x2F;etc&#x2F;csh.login , &#x2F;etc&#x2F;csh.cshrc 登录或启动时Bourne或C shells执行的文件，这允许系统管理员为所有用户建立全局缺省环境。</p>
+<p>&#x2F;etc&#x2F;securetty 确认安全终端，即哪个终端允许root登录.一般只列出虚拟控制台，这样就不可能(至少很困难)通过modem或网络闯入系统并得到超级用户特权。</p>
+<p>&#x2F;etc&#x2F;shells 列出可信任的shell.chsh 命令允许用户在本文件指定范围内改变登录shell.提供一台机器FTP服务的服务进程ftpd 检查用户shell是否列在 &#x2F;etc&#x2F;shells 文件中，如果不是将不允许该用户登录.</p>
+<p>&#x2F;etc&#x2F;sysconfig 网络配置相关目录 </p>
+<p>&#x2F;etc&#x2F;DIR_COLORS 设定颜色</p>
+<p>&#x2F;etc&#x2F;HOSTNAME 设定用户的节点名</p>
+<p>&#x2F;etc&#x2F;NETWORKING 只有YES标明网络存在</p>
+<p>&#x2F;etc&#x2F;host.conf 文件说明用户的系统如何查询节点名</p>
+<p>&#x2F;etc&#x2F;hosts 设定用户自已的IP与名字的对应表</p>
+<p>&#x2F;etc&#x2F;hosts.allow 设置允许使用inetd的机器使用</p>
+<p>&#x2F;etc&#x2F;hosts.deny 设置不允许使用inetd的机器使用</p>
+<p>&#x2F;etc&#x2F;hosts.equiv 设置远端机不用密码</p>
+<p>&#x2F;etc&#x2F;inetd.conf 设定系统网络守护进程inetd的配置</p>
+<p>&#x2F;etc&#x2F;inetd.pid inetd这个进程的进程id</p>
+<p>&#x2F;etc&#x2F;hosts.lpd 设定远端有哪些节点可以使用本机的打印机</p>
+<p>&#x2F;etc&#x2F;gateways 设定路由器</p>
+<p>&#x2F;etc&#x2F;protocols 设定系统支持的协议</p>
+<p>&#x2F;etc&#x2F;named.boot 设定本机为名字服务器的配置文件</p>
+<p>&#x2F;etc&#x2F;named.pid 本机上运行的名字服务器的进程id</p>
+<p>&#x2F;etc&#x2F;networks 设定网络的配置文件</p>
+<p>&#x2F;etc&#x2F;resolv.conf 设定系统的名字服务器</p>
+<p>&#x2F;etc&#x2F;services 设定系统的端品与协议类型和提供的服务</p>
+<p>&#x2F;etc&#x2F;exports 设定NFS系统用的</p>
+<p>&#x2F;etc&#x2F;NNTP_INEWS_DOMAIN 设置新闻服务器的配置文件</p>
+<p>&#x2F;etc&#x2F;nntpserver 设置用户使用的新闻服务器的地址</p>
+<p>&#x2F;etc&#x2F;XF86Config X Window的配置文件</p>
+<p>&#x2F;etc&#x2F;hostid 系统独有的一个硬件id</p>
+<p>&#x2F;etc&#x2F;at.deny 设置哪些用户不能使用at命令</p>
+<p>&#x2F;etc&#x2F;bootptab 给MAKEDEV程序设定各种不同的设备驱动文件的格式</p>
+<p>&#x2F;etc&#x2F;makedev.cfg 同DEVINFO一样给MAKEDEV使用的设置文件</p>
+<p>&#x2F;etc&#x2F;diphosts 设置拔号服务器的用户名和口令</p>
+<p>&#x2F;etc&#x2F;slip.hosts,&#x2F;etc&#x2F;slip.login 设定SLIP的配置文件</p>
+<p>&#x2F;etc&#x2F;fastboot 使用shutdown -f产生的，重启系统要查这个文件</p>
+<p>&#x2F;etc&#x2F;fstab 记录开机要mount的文件系统</p>
+<p>&#x2F;etc&#x2F;ftpaccess FTP服务器的一些配置</p>
+<p>&#x2F;etc&#x2F;ftpconversions 设定在FTP时使用的过滤器的位置</p>
+<p>&#x2F;etc&#x2F;ftpusers 设定不能使用FTP服务的用户</p>
+<p>&#x2F;etc&#x2F;ld.so.cache 查找系统动态链接库的缓存 </p>
+<p>&#x2F;etc&#x2F;ld.so.conf 系统动态链接库的路径</p>
+<p>&#x2F;etc&#x2F;lilo.conf lilo的配置文件</p>
+<p>&#x2F;etc&#x2F;magic 给file命令使用的</p>
+<p>&#x2F;etc&#x2F;aliases 给sendmail使用的设置别名的文件</p>
+<p>&#x2F;etc&#x2F;mail.rc,</p>
+<p>&#x2F;etc&#x2F;mailcap,</p>
+<p>&#x2F;etc&#x2F;sendmail.cf,</p>
+<p>&#x2F;etc&#x2F;sendmail.st 设置sendmail的</p>
+<p>&#x2F;etc&#x2F;motd 超级用户发布通知的地方</p>
+<p>&#x2F;etc&#x2F;organization 存放用户的名字和组织</p>
+<p>&#x2F;etc&#x2F;pnpdevices 列出支持的Plug&amp;Play设备</p>
+<p>&#x2F;etc&#x2F;snooptad 监控用户的屏幕，监听的终端列表</p>
+<p>&#x2F;etc&#x2F;sudoers 可以sudo命令的配置文件</p>
+<p>&#x2F;etc&#x2F;syslog.conf 系统记录程序syslogd的配置文件</p>
+<p>&#x2F;etc&#x2F;utmp 目前在用系统的用户信息</p>
+<p>&#x2F;etc&#x2F;wtmp 同utmp差不多，只是它累加</p>
+<p>&#x2F;etc&#x2F;nologin 系统在shutdown时不希望用户登录就产生这个文件</p>
+<p>&#x2F;etc&#x2F;termcap 设置系统终端信息的</p>
+<p>&#x2F;etc&#x2F;ttys 设定系统的终端类型</p>
+<p>&#x2F;etc&#x2F;gettydefs getty_ps的定义文件</p>
+<p>&#x2F;etc&#x2F;yp.conf NIS的配置文件</p>
+<p>&#x2F;etc&#x2F;mtools.conf 设定mtools程序的参数</p>
+<p>&#x2F;etc&#x2F;fdprm 设定格式化软盘的参数</p>
+<p>&#x2F;etc&#x2F;login.access 控制用户登录权限的文件 </p>
+<p>&#x2F;proc目录</p>
+<p>&#x2F;proc&#x2F;cmdline 加载 kernel 时所下达的相关参数，查阅此文件，可了解系统是如何启动。</p>
+<p>&#x2F;proc&#x2F;cpuinfo 本机的 CPU 的相关资讯，包含时脉、类型与运算功能等</p>
+<p>&#x2F;proc&#x2F;devices 这个文件记录了系统各个主要装置的主要装置代号，与 mknod 有关。</p>
+<p>&#x2F;proc&#x2F;filesystems 目前系统已经加载的文件系统。</p>
+<p>&#x2F;proc&#x2F;interrupts 目前系统上面的 IRQ 分配状态。</p>
+<p>&#x2F;proc&#x2F;ioports 目前系统上面各个装置所配置的 I&#x2F;O 位址。</p>
+<p>&#x2F;proc&#x2F;kcore 这个就是内存的大小，但是不要读他。</p>
+<p>&#x2F;proc&#x2F;loadavg 还记得 top 以及 uptime 吧？没错，上头的三个平均数值就是记录在此。</p>
+<p>&#x2F;proc&#x2F;meminfo 使用 free 列出的内存资讯，在这里也能够查阅到。</p>
+<p>&#x2F;proc&#x2F;modules 目前我们的 Linux 已经加载的模块列表，也可以想成是驱动程序。</p>
+<p>&#x2F;proc&#x2F;mounts 系统已经挂载的数据，就是用 mount 这个命令呼叫出来的数据。</p>
+<p>&#x2F;proc&#x2F;swaps 到底系统挂加载的内存在哪里？使用掉的 partition 就记录在此啦。</p>
+<p>&#x2F;proc&#x2F;partitions 使用 fdisk -l 会出现目前所有的 partition 吧？在这个文件当中也有纪录。</p>
+<p>&#x2F;proc&#x2F;pci 在 PCI 汇流排上面，每个装置的详细情况，可用 lspci 来查阅。</p>
+<p>&#x2F;proc&#x2F;uptime 就是用 uptime 的时候，会出现的资讯。</p>
+<p>&#x2F;proc&#x2F;version 核心的版本，就是用 uname -a 显示的内容。</p>
+<p>&#x2F;proc&#x2F;bus&#x2F;* 一些汇流排的装置，还有 U盘 的装置也记录在此。</p>
+<p>&#x2F;usr目录</p>
+<p>&#x2F;usr 最庞大的目录，因为所有应用程序几乎都安装在这里， 本地安装的程序和其他东西在&#x2F;usr&#x2F;local 下。</p>
+<p>&#x2F;usr&#x2F;etc 存放配置文件。</p>
+<p>&#x2F;usr&#x2F;games 存放游戏和教学文件。</p>
+<p>&#x2F;usr&#x2F;include 开发和编译应用程序所需要的头文件。</p>
+<p>&#x2F;usr&#x2F;share 存放结构独立的数据。</p>
+<p>&#x2F;usr&#x2F;bin 几乎所有用户命令.有些命令在&#x2F;bin 或&#x2F;usr&#x2F;local&#x2F;bin 中。</p>
+<p>&#x2F;usr&#x2F;sbin 根文件系统不必要的系统管理命令，例如多数服务程序。</p>
+<p>&#x2F;usr&#x2F;share&#x2F;man , &#x2F;usr&#x2F;share&#x2F;info , &#x2F;usr&#x2F;share&#x2F;doc 手册页、GNU信息文档和各种其他文档文件。</p>
+<p>&#x2F;usr&#x2F;lib 程序或子系统的不变的数据文件，包括一些site-wide配置文件，名字lib来源于库(library)， 编程的原始库存在&#x2F;usr&#x2F;lib 里。</p>
+<p>&#x2F;usr&#x2F;local 本地安装的软件和其他文件放在这里，&#x2F;usr&#x2F;local&#x2F;bin存放本地增加的命令，&#x2F;usr&#x2F;local&#x2F;include存放本地增加的库文件。</p>
+<p>&#x2F;usr&#x2F;src 存放程序的源代码，linux内核的源代码存放在&#x2F;usr&#x2F;src&#x2F;kernels。</p>
+<p>&#x2F;var目录</p>
+<p>&#x2F;var 包括系统一般运行时要改变的数据.每个系统是特定的，即不通过网络与其他计算机共享。</p>
+<p>&#x2F;var&#x2F;catman 当要求格式化时的man页的cache.man页的源文件一般存在&#x2F;usr&#x2F;man&#x2F;man* 中；有些man页可能有预格式化的版本，存在&#x2F;usr&#x2F;man&#x2F;cat* 中.而其他的man页在第一次看时需要格式化，格式化完的版本存在&#x2F;var&#x2F;man 中，这样其他人再看相同的页时就无须等待格式化了. (&#x2F;var&#x2F;catman 经常被清除，就象清除临时目录一样.)</p>
+<p>&#x2F;var&#x2F;lib 系统正常运行时要改变的文件。</p>
+<p>&#x2F;var&#x2F;local，&#x2F;usr&#x2F;local 中安装的程序的可变数据(即系统管理员安装的程序).注意，如果必要，即使本地安装的程序也会使用其他&#x2F;var 目录，例如&#x2F;var&#x2F;lock 。</p>
+<p>&#x2F;var&#x2F;lock 锁定文件.许多程序遵循在&#x2F;var&#x2F;lock 中产生一个锁定文件的约定，以支持他们正在使用某个特定的设备或文件.其他程序注意到这个锁定文件，将不试图使用这个设备或文件。</p>
+<p>&#x2F;var&#x2F;log 各种程序的Log文件，特别是login (&#x2F;var&#x2F;log&#x2F;wtmp log所有到系统的登录和注销) 和syslog (&#x2F;var&#x2F;log&#x2F;messages 里存储所有核心和系统程序信息. &#x2F;var&#x2F;log 里的文件经常不确定地增长，应该定期清除。</p>
+<p>&#x2F;var&#x2F;run 保存到下次引导前有效的关于系统的信息文件.例如， &#x2F;var&#x2F;run&#x2F;utmp 包含当前登录的用户的信息。</p>
+<p>&#x2F;var&#x2F;spool，&#x2F;var&#x2F;mail, &#x2F;var&#x2F;news  打印队列和其他队列工作的目录.每个不同的spool在&#x2F;var&#x2F;spool 下有自己的子目录，例如，用户的邮箱在&#x2F;var&#x2F;spool&#x2F;mail 中。</p>
+<p>&#x2F;var&#x2F;tmp 比&#x2F;tmp 允许的大或需要存在较长时间的临时文件。 (虽然系统管理员可能不允许&#x2F;var&#x2F;tmp 有很旧的文件.)</p>
+<p>比较重要的目录</p>
+<p>在 Linux 系统中，有几个目录是特别需要注意的，以下提供几个需要注意的目录，以及预设相关的用途：　</p>
+<p>&#x2F;etc：这个目录相当重要，如前所述，你的开机与系统数据文件均在这个目录之下，因此当这个目录被破坏，那你的系统大概也就差不多该死掉了！而在往后的文件中，你会发现我们常常使用这个目录下的 &#x2F;etc&#x2F;rc.d&#x2F;init.d 这个子目录，因为这个 init.d 子目录是开启一些 Linux 系统服务的 scripts （可以想成是批次檔 ）的地方。而在 &#x2F;etc&#x2F;rc.d&#x2F;rc.local 这个文件是开机的执行档。　</p>
+<p>&#x2F;bin, &#x2F;sbin, &#x2F;usr&#x2F;bin, &#x2F;usr&#x2F;sbin：这是系统预设的执行文件的放置目录，例如 root 常常使用的 userconf, netconf, perl, gcc, c++ 等等的数据都放在这几个目录中，所以如果你在提示字符下找不到某个执行档时，可以在这四个目录中查一查！其中， &#x2F;bin, &#x2F;usr&#x2F;bin 是给系统使用者使用的指令，而 &#x2F;sbin, &#x2F;usr&#x2F;sbin 则是给系统管理员使用的指令！ </p>
+<p>&#x2F;usr&#x2F;local：这是系统预设的让你安装你后来升级的套件的目录。例如，当你发现有更新的 Web 套件（如 Apache ）可以安装，而你又不想以 rpm 的方式升级你的套件，则你可以将 apache 这个套件安装在 &#x2F;usr&#x2F;local 底下。安装在这里有个好处，因为目前大家的系统都是差不多的，所以如果你的系统要让别人接管的话，也比较容易上手呀！也比较容易找的到数据喔！因此，如果你有需要的话，通常我都会将 &#x2F;usr&#x2F;local&#x2F;bin 这个路径加到我的 path 中。</p>
+<p>&#x2F;home：这个是系统将有账号的人口的家目录设置的地方。 　</p>
+<p>&#x2F;var：这个路径就重要了！不论是登入、各类服务的问题发生时的记录、以及常态性的服务记录等等的记录目录，所以当你的系统有问题时，就需要来这个目录记录的文件数据中察看问题的所在啰！而 mail 的预设放置也是在这里，所以他是很重要的 。</p>
+<p>&#x2F;usr&#x2F;share&#x2F;man, &#x2F;usr&#x2F;local&#x2F;man： 这两个目录为放置各类套件说明档的地方，例如你如果执行 man man，则系统会自动去找这两个目录下的所有说明文件。</p>
+<p>文件种类：</p>
+<p>文件属性中最前面的标志 ( d 或 - ) 可以代表目录或文件，那就是不同的文件种类，Linux 的文件种类主要有底下这几种：</p>
+<p>正规文件( regular file )：就是一般类型的文件，在由 ls –al 所显示出来的属性方面，第一个属性为 [ - ]。</p>
+<p>另外，依照文件的内容，又大略可以分为两种文件种类：</p>
+<p>纯文字文件(ascii) ：这是 Unix 系统中最多的一种啰，几乎只要我们可以用来做为设定的文件都属于这一种；</p>
+<p>二进制文件(binary) ：通常执行档除了 scripts （文字型批次文件）之外，就是这一种文件格式； </p>
+<p>目录 (directory)：就是目录！第一个属性为 [ d ]；</p>
+<p>连结档 (link)：就是类似 Windows 底下的快捷方式啦！第一个属性为 [ l ]；</p>
+<p>设备档 (device)：与系统周边相关的一些文件，通常都集中在 &#x2F;dev 这个目录之下！通常又分为两种：</p>
+<p>区块 (block) 设备档 ：就是一些储存数据，以提供系统存取的接口设备，简单的说就是硬盘啦！例如你的一号硬盘的代码是 &#x2F;dev&#x2F;hda1 等等的文件啦！第一个属性为 [ b ]；</p>
+<p>字符 (character) 设备档 ：亦即是一些串行端口的接口设备，例如键盘、鼠标等等！第一个属性为 [ c ]。</p>
+<p>Linux 的文件系统( inode )： </p>
+<p>在 Linux 系统当中，每个文件不止有文件的内容数据，还包括文件的种种属性，例如：所属群组、所属使用者、能否执行、文件建立时间、文件特殊属性等等。我们将每个文件的内容分为两个部分来储存，一个是文件的属性，另一个则是文件的内容。</p>
+<p>为了应付这两个不同的东西，所以 ext2 规划出 inode 与block 来分别储存文件的属性( 放在 inode 当中 )与文件的内容( 放置在 Block area 当中 )。当我们要将一个 partition 格式化( format )为 ext2 时，就必须要指定 inode 与 Block 的大小才行，也就是说，当 partition 被格式化为 ext2 的文件系统时，他一定会有 inode table 与 block area 这两个区域。</p>
+<p>Block 已经在前面说过了，他是数据储存的最小单位。那么 inode 是什么？！简单的说， block 是记录『文件内容数据』的区域，至于 inode 则是记录『该文件的相关属性，以及文件内容放置在哪一个 Block 之内』的信息。简单的说， inode 除了记录文件的属性外，同时还必须要具有指向( pointer )的功能，亦即指向文件内容放置的区块之中，好让操作系统可以正确的去取得文件的内容啊</p>
+<p>该文件的拥有者与群组(owner&#x2F;group)；<br>该文件的存取模式；<br>该文件的类型；<br>该文件的建立日期(ctime)、最近一次的读取时间(atime)、最近修改的时间 (mtime)；<br>该文件的容量；<br>定义文件特性的旗标(flag)，如 SetUID…；<br>该文件真正内容的指向 (pointer)；<br>————————————————<br>版权声明：本文为CSDN博主「Icon-L」的原创文章，遵循CC 4.0 BY-SA版权协议，转载请附上原文出处链接及本声明。<br>原文链接：<a target="_blank" rel="noopener" href="https://blog.csdn.net/m0_38044196/article/details/72844025">https://blog.csdn.net/m0_38044196/article/details/72844025</a></p>
+</blockquote>
+<h2 id="3-0-Linux实操篇"><a href="#3-0-Linux实操篇" class="headerlink" title="3.0 Linux实操篇"></a>3.0 Linux实操篇</h2><h3 id="3-1远程登录到Linux"><a href="#3-1远程登录到Linux" class="headerlink" title="3.1远程登录到Linux"></a>3.1远程登录到Linux</h3><blockquote>
+<p>在应用中，Linux不会存放在个人端，即员工操作需要远程登录</p>
+</blockquote>
+<p>XShell5：远程登录</p>
+<blockquote>
+<p>完美解决中文乱码，极其优秀</p>
+</blockquote>
+<p><strong>特别说明：如果希望XShell5可以远程访问Linux系统的话，需要有一个前提，需要CentOs开启sshd服务，sshd会监视22端口</strong></p>
+<h3 id="3-2远程上传下载软件"><a href="#3-2远程上传下载软件" class="headerlink" title="3.2远程上传下载软件"></a>3.2远程上传下载软件</h3><p>XFtp5：远程安装与下载</p>
+<p>XShell5仅可以远程命令行操作，但Xftp5可以支持远程文件下载于上传</p>
+<h3 id="3-3Vi与vim的使用"><a href="#3-3Vi与vim的使用" class="headerlink" title="3.3Vi与vim的使用"></a>3.3Vi与vim的使用</h3><h4 id="3-3-1介绍"><a href="#3-3-1介绍" class="headerlink" title="3.3.1介绍"></a>3.3.1介绍</h4><p>所有的Linux系统都会内建vi文本编译器</p>
+<p>Vim具有程序编辑的能力，可以看做是Vi的增强版本，可以主动的一字体颜色辨别语法的正确性，方便程序设计。代码补完，编译及错误跳转等方便编程的功能特别丰富。</p>
+<h4 id="3-3-2Vi与Vim常用放入三种模式"><a href="#3-3-2Vi与Vim常用放入三种模式" class="headerlink" title="3.3.2Vi与Vim常用放入三种模式"></a>3.3.2Vi与Vim常用放入三种模式</h4><blockquote>
+<p>正常模式</p>
+</blockquote>
+<p>以Vim打开一个档案直接进入一般模式（这是默认的模式），在这个模式中，可以使用上下左右按键来移动光标，可以使用删除字符或删除整行来处理档案内容，也可以使用复刻，贴上来处理文件数据</p>
+<blockquote>
+<p>插入模式or编辑模式</p>
+</blockquote>
+<p>按下i I o O a A r R 等任意一个字母才会进入编辑模式，一般来说按住i即可</p>
+<blockquote>
+<p>命令行模式</p>
+</blockquote>
+<p>在此模式中，可以提供相关指令，完成读取，存盘，替换，离开vim，显示行号等的动作则是在此模式下完成</p>
+<h4 id="3-3-3快捷键使用"><a href="#3-3-3快捷键使用" class="headerlink" title="3.3.3快捷键使用"></a>3.3.3快捷键使用</h4><h3 id="3-4关机-amp-重启"><a href="#3-4关机-amp-重启" class="headerlink" title="3.4关机&amp;重启"></a>3.4关机&amp;重启</h3><blockquote>
+<p>shutdown</p>
+</blockquote>
+<p>shutdown -h now 立刻关机</p>
+<p>shutdown -h 1     1分钟后关机</p>
+<p>shutdown -f now  现在重启计算机</p>
+<blockquote>
+<p>halt</p>
+</blockquote>
+<p>关机</p>
+<blockquote>
+<p>reboot</p>
+</blockquote>
+<p>现在重启计算机</p>
+<blockquote>
+<p>sync</p>
+</blockquote>
+<p>把内存数据同步到磁盘</p>
+<p><strong>不论是重启还是关机，首应先执行sync再执行，把内存中的数据写到磁盘上</strong></p>
+<h3 id="3-5用户登录与注销"><a href="#3-5用户登录与注销" class="headerlink" title="3.5用户登录与注销"></a>3.5用户登录与注销</h3><blockquote>
+<p>登录时尽量少使用root账号，要问他是系统管理员，最大的权限，避免操作失误，可以以普通用户登录，登录后再使用“su -用户名”命令来切换系统管理员身份</p>
+<p>在提示符下输入logout即可以注销用户</p>
+</blockquote>
+<p>使用细节</p>
+<blockquote>
+<p>logout注销这个指令在图形运行级别无用，在运行级别下有用</p>
+<p>图形界面是指在虚拟机的图形界面里</p>
+<p>运行级别是一个概念</p>
+</blockquote>
+<p>###3.6用户管理</p>
+<p>####3.6.1 基本介绍</p>
+<blockquote>
+<p>一个用户至少属于一个组，也可以属于多个组</p>
+<p>用户家目录：&#x2F;home&#x2F;</p>
+<p>目录下有各个创建的用户对应的家目录，当用户创建时，会自动进入到自己的家目录</p>
+<p>且家目录会自动创建与自己名字相同的家目录</p>
+</blockquote>
+<p>Linux是一个多一户多任务的操作系统，任何一个需要使用系统资源的用户，都<strong>必须</strong>首先向系统管理员申请一个账号，然后以这个账号的身份进入到系统。</p>
+<h4 id="3-6-2添加用户"><a href="#3-6-2添加用户" class="headerlink" title="3.6.2添加用户"></a>3.6.2添加用户</h4><blockquote>
+<p>基本语法</p>
+</blockquote>
+<p>useradd 【选项】 用户名    【】代表可选</p>
+<p>添加用户小明</p>
+<p>如果在创建小明时为创建组，则自动创建一个与小明相同名字的组，并将小明放在此组中</p>
+<blockquote>
+<p>cd ：表示切换目录</p>
+</blockquote>
+<p>也可以通过useradd -d 指定目录   用户名   便是指定新用户所在的组</p>
+<p>创建新用户时一般组文件新创建</p>
+<blockquote>
+<p>mkdir 文件夹   表示创建新的目录</p>
+</blockquote>
+<p>####3.6.3指定，修改密码</p>
+<p>passwd 用户名</p>
+<p>密码修改过程中会加密处理</p>
+<h4 id="3-6-4-删除用户"><a href="#3-6-4-删除用户" class="headerlink" title="3.6.4 删除用户"></a>3.6.4 删除用户</h4><p>userdel 用户名</p>
+<blockquote>
+<p>保留家目录</p>
+</blockquote>
+<p>userdel 用户名</p>
+<blockquote>
+<p>不保留家目录</p>
+</blockquote>
+<p>userdel -r 用户名</p>
+<p>一般来说不会删除家目录</p>
+<h4 id="3-6-5查询用户信息"><a href="#3-6-5查询用户信息" class="headerlink" title="3.6.5查询用户信息"></a>3.6.5查询用户信息</h4><p>id 用户名</p>
+<blockquote>
+<p>用户不存在的话会返回无此用户</p>
+</blockquote>
+<p>uid用户id  gid 所属组的id号</p>
+<h4 id="3-6-6切换用户"><a href="#3-6-6切换用户" class="headerlink" title="3.6.6切换用户"></a>3.6.6切换用户</h4><p>在操作Linux中，如果用户的权限不够，可以通过<code>su -指令</code>来切换到最高权限用户，比如root</p>
+<p>基本语法</p>
+<p>su - 切换用户名</p>
+<blockquote>
+<p>细节说明</p>
+<p>从最高权限用户切换到低权限用户时，无需输入密码</p>
+<p>当需要切换到原来用户时，输入 <code>exit</code>指令</p>
+</blockquote>
+<h4 id="3-6-7用户组"><a href="#3-6-7用户组" class="headerlink" title="3.6.7用户组"></a>3.6.7用户组</h4><blockquote>
+<p>类似于一种角色，系统可以对有共性的用户进行统一的管理</p>
+</blockquote>
+<blockquote>
+<p>增加组</p>
+</blockquote>
+<p>groupadd 组名</p>
+<blockquote>
+<p>删除组</p>
+</blockquote>
+<p>groupdel 组名</p>
+<h4 id="3-6-8用户与组的操作"><a href="#3-6-8用户与组的操作" class="headerlink" title="3.6.8用户与组的操作"></a>3.6.8用户与组的操作</h4><blockquote>
+<p>创建新用户时直接添加到组</p>
+</blockquote>
+<p>useradd -g 用户组 用户名     </p>
+<blockquote>
+<p>修改用户的组</p>
+</blockquote>
+<p>usermod -g 用户组 用户名</p>
+<p><strong>当用户被删除且当前所在组不为原始组时时，原始组不会被删除</strong></p>
+<h4 id="3-6-9用户和组的配置文件"><a href="#3-6-9用户和组的配置文件" class="headerlink" title="3.6.9用户和组的配置文件"></a>3.6.9用户和组的配置文件</h4><blockquote>
+<p>对于用户来说，存在一个用户配置文件&#x2F;etc&#x2F;passwd</p>
+</blockquote>
+<p>用户信息存放在这里</p>
+<p>行含义-&gt; 用户名：口令（密码）：用户标识号：组标识号：注释性描述：家目录：登录Shell</p>
+<blockquote>
+<p>组信息 &#x2F;etc&#x2F;group</p>
+</blockquote>
+<p>行含义-&gt; 组名：口令（密码）：组标识符号：组内用户列表</p>
+<p>组内用户列表看不见</p>
+<blockquote>
+<p>口令配置文件（密码和登录信息）&#x2F;etc&#x2F;shadow</p>
+</blockquote>
+<p>我的理解是这些文件是同一份，但是不同权限的用户说能看到的内容是不同的</p>
+<h3 id="3-7实用指令"><a href="#3-7实用指令" class="headerlink" title="3.7实用指令"></a>3.7实用指令</h3><h4 id="3-7-1指定运行级别"><a href="#3-7-1指定运行级别" class="headerlink" title="3.7.1指定运行级别"></a>3.7.1指定运行级别</h4><blockquote>
+<p>运行级别：Linux有7个运行级别</p>
+<p>0:关机</p>
+<p>1：单用户    (找回丢失密码)</p>
+<p>2：多用户无网络服务</p>
+<p>3：多用户有网络服务</p>
+<p>4：保留</p>
+<p>5：图形界面</p>
+<p>6：重启</p>
+</blockquote>
+<p>常用的是3与5级别</p>
+<p>系统的运行级别配置文件：&#x2F;etc&#x2F;inittab</p>
+<blockquote>
+<p>切换指定运行级别的指令</p>
+</blockquote>
+<p>int 级别   </p>
+<blockquote>
+<p>运行级别可以找回root密码</p>
+</blockquote>
+<ul>
+<li>进入到单用户模式</li>
+</ul>
+<p>进入到单用户模式无需密码登录</p>
+<ul>
+<li>修改密码</li>
+</ul>
+<p>具体流程  <a target="_blank" rel="noopener" href="https://blog.csdn.net/chengkui1990/article/details/83306502">https://blog.csdn.net/chengkui1990/article/details/83306502</a></p>
+<blockquote>
+<p>一进入到CentOS系统，进入3模式的方法</p>
+</blockquote>
+<p>编辑&#x2F;etc&#x2F;inittab</p>
+<p>使用vim编译器，将int 级别改为3，即设置成功</p>
+<h4 id="3-7-2帮助指令"><a href="#3-7-2帮助指令" class="headerlink" title="3.7.2帮助指令"></a>3.7.2帮助指令</h4><blockquote>
+<p> 当对某个指令不熟悉时，可以使用Linux提供的帮助指令来了解这个指令的使用</p>
+</blockquote>
+<blockquote>
+<p>man</p>
+</blockquote>
+<p>语法：man 命令或配置文件    （功能描述，获得帮助下信息）</p>
+<p>如 man ls </p>
+<blockquote>
+<p>help</p>
+</blockquote>
+<p>help 命令 (功能描述，获得shell内置命令的帮助信息)</p>
+<p>如 help cd</p>
+<blockquote>
+<p>建议</p>
+</blockquote>
+<p>如若不熟悉，可以使用百度</p>
+<h4 id="3-7-3文件目录类"><a href="#3-7-3文件目录类" class="headerlink" title="3.7.3文件目录类"></a>3.7.3文件目录类</h4><blockquote>
+<p>pwd </p>
+</blockquote>
+<p>便是当前文件的绝对路径</p>
+<blockquote>
+<p>ls</p>
+</blockquote>
+<p>ls 选项 目录或文件 </p>
+<p>常用选项 -a  显示当前目录所有的文件与目录，包括隐藏的</p>
+<p>​                -l 以列表的形式显示信息</p>
+<p>也可以连用 如 ls -al</p>
+<blockquote>
+<p>cd</p>
+</blockquote>
+<p>cd 参数  切换指定目录</p>
+<p>常用的参数：</p>
+<p>​                    cd ~  或 cd回到自己的家目录</p>
+<p>​                    cd .. 回到当前目录的上一级</p>
+<p>绝对路径：完整的路径名，即从根路径开始  如cd &#x2F;home&#x2F;</p>
+<p>相对路径：相对于某一目录的路径                  如cd ..&#x2F;home&#x2F;</p>
+<blockquote>
+<p>mkdir </p>
+</blockquote>
+<p>mkdir 选项 目录名   （用于创建目录）</p>
+<p>常用选项</p>
+<p>-p 创建多级目录</p>
+<p>如创建</p>
+<ul>
+<li>&#x2F;home&#x2F;dog     mkdir &#x2F;home&#x2F;dog</li>
+<li>&#x2F;home&#x2F;animal&#x2F;tiger      mkdir -p &#x2F;home&#x2F;animal&#x2F;tiger&#x2F;</li>
+</ul>
+<p>推荐全路径的方式创建目录，也可以采取相对路径来创建</p>
+<blockquote>
+<p>rmdir</p>
+</blockquote>
+<p>rmdir 选项 目录名    （删除<strong>空</strong>目录）</p>
+<p>如果目录下有内容，则无法删除，但是可以采取<code>rm -rf 目录名</code> 来执行删除</p>
+<blockquote>
+<p>touch</p>
+</blockquote>
+<p>touch 文件名称 （创建空文件） </p>
+<p>如 touch hello.txt</p>
+<p><strong>也可以一次性创建多个文件</strong> <code>touch hello1.txt hello2.txt</code></p>
+<blockquote>
+<p>cp</p>
+</blockquote>
+<p>cp 选项 source【源文件】 dest【目标】  （拷贝文件到指定目录）  这里的源文件与目标目录但是路径，推荐采取相对路径</p>
+<p>选项    -f  递归复制整个文件夹</p>
+<p>如：cp aaa.txt bbb  复制当前目录下的aaa.txt文件到不不不目录下</p>
+<p>​        cp -f aaa bbb  递归将aaa目录下的内容全部拷贝bbb目录下</p>
+<blockquote>
+<p>rm</p>
+</blockquote>
+<p>rm 选项 目标文件或目录  （移除文件或目录）</p>
+<p>选项：-r 递归移除整个文件夹   -f 强制删除不提示</p>
+<p>如过提示是否删除，直接输入 y </p>
+<blockquote>
+<p>mv  </p>
+</blockquote>
+<p>mv oldNameFile NewNameFile （重命名）</p>
+<p>mv &#x2F;temp&#x2F;movefile&#x2F;targetFolder  (移动文件)</p>
+<p>如 mv aaa.txt bbb.txt</p>
+<p>​     rm aaa.txt bendan&#x2F;  将aaa.txt 移动到笨蛋文件夹下  </p>
+<p>系统理解是 末尾是文件夹，则被认为是移动</p>
+<blockquote>
+<p>cat</p>
+</blockquote>
+<p>cat 选项 文件名 （查看文件内容）</p>
+<p>选项 -n   显示行号</p>
+<p><strong>cat只可以浏览，不可以修改，相当于只读方式打开</strong></p>
+<p><strong>可以与|符连用</strong></p>
+<p>如cat -n aaa.txt | more  （表示分页查询）</p>
+<p>按住空格键表示翻页</p>
+<blockquote>
+<p>more</p>
+</blockquote>
+<p>more指令是一个基于vi编辑器的文本过滤器，它将以全屏幕的方式按页显示</p>
+<p>文本文件的内容。</p>
+<p>more指令中内置了若干的快捷键。</p>
+<p>more 文件名</p>
+<table>
+<thead>
+<tr>
+<th>空格&#x2F;space</th>
+<th>向下翻一页</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Enter</td>
+<td>向下翻一行</td>
+</tr>
+<tr>
+<td>q</td>
+<td>代表立刻离开显示</td>
+</tr>
+<tr>
+<td>Ctrl+F</td>
+<td>向下滚动一屏</td>
+</tr>
+<tr>
+<td>Ctrl+B</td>
+<td>向上滚动一屏</td>
+</tr>
+<tr>
+<td>&#x3D;</td>
+<td>输出当前行号</td>
+</tr>
+<tr>
+<td>:f</td>
+<td>输出文件名和当前行号</td>
+</tr>
+</tbody></table>
+<blockquote>
+<p>less</p>
+</blockquote>
+<p>less指令也是用来分屏查看文件内容的，但是它的功能强于more，支持各种显示终端。less指令显示文本内容时，并不是将整个文件加载后才显示，而是根据显示需要加载内容，<strong>对于大文件显示效率高</strong></p>
+<p>less 文件名</p>
+<blockquote>
+<p><code>&gt;和&gt;&gt;</code></p>
+</blockquote>
+<p><code>&gt;</code>输出重定向(覆盖) &gt;&gt; 追加（不会覆盖原来文件的内容）</p>
+<p>ls -l &gt; 文件        列表的内容写入文件（覆盖写）  文件不存在则创建后写入</p>
+<p>ls -al &gt;&gt; 文件    列表的全部内容追加到文件的末尾</p>
+<p>cat 文件1 &gt; 文件2    将文件的内容覆盖到文件2中</p>
+<p>echo “内容” &gt;&gt; 文件</p>
+<blockquote>
+<p>echo</p>
+</blockquote>
+<p>echo 选项 “输出内容”    （输出内容到控制台）</p>
+<p>如输出环境路径    echo $PATH</p>
+<p>输出内容到控制台  echo  “”</p>
+<blockquote>
+<p>head</p>
+</blockquote>
+<p>head用于显示文件的开头部分内容，默认情况下显示10行</p>
+<p>head 文件名 (显示文件的前10行内容)</p>
+<p>head -n 行数 文件名 (查看行数行的内容)</p>
+<p>如head -n 5 &#x2F;etc&#x2F;profile</p>
+<blockquote>
+<p>tail</p>
+</blockquote>
+<p>tail用于输出文件尾部的内容，默认也是显示文件的后10行内容</p>
+<p>tail 文件名 </p>
+<p>tail -n 5 文件名 </p>
+<p>tail -f 文件名 实时跟踪该文档的所有更新</p>
+<blockquote>
+<p>ln                  L</p>
+</blockquote>
+<p>软连接也称符号链接 ，类似于windows中的快捷键，主要存放了链接其他文件的路径</p>
+<p>ln -s 原文件或目录 软链接名 （给原文件创建一个软链接）</p>
+<p>软连接会保存在创建时的路径下</p>
+<p>link  -s  &#x2F;home&#x2F;  linktohome</p>
+<p>操作cd linktohome&#x2F; 可以直接切换到软链接的文件位置</p>
+<p>但是如果在使用软链接后直接查询pwd的话会显示软链接本身的文件路径，而不是目标文件下的路径</p>
+<p><strong>删除linktohome软链接</strong>    </p>
+<p>rm -rf  linktohome   后面不需要带&#x2F;  会删除不掉的</p>
+<blockquote>
+<p>history</p>
+</blockquote>
+<p>history  (查看已经执行过的历史指令)</p>
+<p>查看所有的历史指令  history</p>
+<p>查看后10个   history 10    直接加数字即可</p>
+<p>执行历史编号为5的指令  !5   !加数字即可</p>
+<h4 id="3-7-4时间日期类"><a href="#3-7-4时间日期类" class="headerlink" title="3.7.4时间日期类"></a>3.7.4时间日期类</h4><blockquote>
+<p>date   显示当前日期</p>
+</blockquote>
+<p>date （显示当前时间）</p>
+<p>date +%Y （显示当前年份）</p>
+<p>date +%m   （显示当前月份）</p>
+<p>date +%d      （显示当前是哪一天）</p>
+<p>date “+%Y -%m -%d %H:%M:%S”  (显示年月日时分秒)</p>
+<blockquote>
+<p>date 设置日期</p>
+</blockquote>
+<p>date -s 字符串时间</p>
+<p>date -s “2020 -11 -11 11:11:11”   </p>
+<p>字符串时间格式   如上  需要添加””</p>
+<blockquote>
+<p>cal</p>
+</blockquote>
+<p>cal 选项  （以日历的形式显示时间）</p>
+<p>cal直接显示当前年份月份的日历</p>
+<p>cal 2020 直接显示2020年的所有日历</p>
+<h4 id="3-7-5搜索查找类"><a href="#3-7-5搜索查找类" class="headerlink" title="3.7.5搜索查找类"></a>3.7.5搜索查找类</h4><blockquote>
+<p>find</p>
+</blockquote>
+<p>find指令将从指定目录下递归地便利其各个子文件目录，将满足条件的文件或者目录显示在终端上</p>
+<p>find 搜索范围 选项 目标条件</p>
+<p>搜索范围一般是指目录</p>
+<p>find &#x2F;home -name hello.txt  搜索home文件夹下  名字是hello.txt的路径    hello.txt处可使用*.txt  表示查询所有的txt文件</p>
+<p>find &#x2F;opt -user nobody    查询opt文件下拥有者是nobody的文件或目录</p>
+<p>find &#x2F;     -size  +20M   查询所有文件大小大于20M的文件       &#x2F;&#x2F;M单位可被其他单位代替    K   </p>
+<p>选项 </p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td>-name</td>
+<td>查找文件名</td>
+</tr>
+<tr>
+<td>-user</td>
+<td>按拥有者查找</td>
+</tr>
+<tr>
+<td>-size</td>
+<td>按大小   +是大于  -是小于  不写符号是等于</td>
+</tr>
+</tbody></table>
+<blockquote>
+<p>locate </p>
+</blockquote>
+<p>locate指令可以快速定位文件路径，locate指令利用事先建立的系统中的所有文件名称及路径的locate数据路快速定位给定的文件，locate指令无需便利整个文件系统，查询速度快，为了保障查询结果的准确性，管理员必须定期更新locate时刻</p>
+<p>locate 搜索文件</p>
+<p>特别说明</p>
+<p><strong>由于locate是基于数据库查询，即第一次必须使用updatedb指令创建locate数据库</strong></p>
+<blockquote>
+<p>grep</p>
+</blockquote>
+<p>grep 选项 查找内容 源文件</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td>-n</td>
+<td>显示匹配符与行号</td>
+</tr>
+<tr>
+<td>-i</td>
+<td>字母大小写  （默认是忽略大小写）</td>
+</tr>
+</tbody></table>
+<p>在hello.txt 文件中查找“yes”所在行，并显示行号,，忽略大小写        </p>
+<p>cat hello.txt | grep -n yes</p>
+<blockquote>
+<p>管道符 |</p>
+</blockquote>
+<h4 id="3-7-6压缩与解压缩"><a href="#3-7-6压缩与解压缩" class="headerlink" title="3.7.6压缩与解压缩"></a>3.7.6压缩与解压缩</h4><blockquote>
+<p>gzip 压缩</p>
+</blockquote>
+<p>gzip 文件 （压缩文件，只能将文件压缩成.gz文件夹）</p>
+<p>压缩后，原文件U不保留</p>
+<blockquote>
+<p>gunzip</p>
+</blockquote>
+<p>gunzip 文件.gz （解压文件夹命令）</p>
+<blockquote>
+<p>zip</p>
+</blockquote>
+<p>用于压缩文件 </p>
+<p>zip 选项 XXX.zip 要压缩的内容 （压缩文件和目录的指令）</p>
+<p>-r 递归压缩，即压缩目录</p>
+<blockquote>
+<p>unzip</p>
+</blockquote>
+<p>unzip 选项 XXX.zip (解压缩文件)</p>
+<p>-d 目录  .指定解压后文件的存放目录 </p>
+<blockquote>
+<p>tar</p>
+</blockquote>
+<p>打包指令，最后打包后的文件是.targz的文件</p>
+<p>tar 选项 XXX.targz 打包的内容 （打包目录，压缩后的文件格式是.targz）</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td>-c</td>
+<td>产生.targz打包文件</td>
+</tr>
+<tr>
+<td>-v</td>
+<td>显示详细信息</td>
+</tr>
+<tr>
+<td>-f</td>
+<td>指定压缩后的文件名</td>
+</tr>
+<tr>
+<td>-z</td>
+<td>打包同时压缩</td>
+</tr>
+<tr>
+<td>-x</td>
+<td>解包.tar文件</td>
+</tr>
+</tbody></table>
+<h3 id="3-8组管理"><a href="#3-8组管理" class="headerlink" title="3.8组管理"></a>3.8组管理</h3><h4 id="3-8-1Linux组的基本介绍"><a href="#3-8-1Linux组的基本介绍" class="headerlink" title="3.8.1Linux组的基本介绍"></a>3.8.1Linux组的基本介绍</h4><p>Linux中每个用户必须属于一个组，不能独立于组外，在Linux中每个文件有所有者，所在组，其他组的概念</p>
+<ul>
+<li>所有者</li>
+<li>所在组</li>
+<li>其他组</li>
+<li>改变用户所在组</li>
+</ul>
+<blockquote>
+<p>所有者</p>
+</blockquote>
+<p>一般来说，文件的创建者就是文件的所有者，所在组即为创建者所在组，但是所在组是可以更改的，可以出现文件所在组与所有者的组不相同的情况</p>
+<p><strong>查看文件所有者</strong></p>
+<p>ls -ahl</p>
+<p><strong>修改文件所有者</strong></p>
+<p>chown 用户名 文件名</p>
+<p>这里的用户名是指修改后的文件所有者</p>
+<blockquote>
+<p>组的创建</p>
+</blockquote>
+<p>前面有</p>
+<blockquote>
+<p>文件&#x2F;目录所在组</p>
+</blockquote>
+<p>当某个用户创建一个文件后，这个文件所在组就是该用户所在组</p>
+<p><strong>查看文件&#x2F;目录所在组</strong></p>
+<p>ls -ahl</p>
+<p><strong>修改文件所在组</strong></p>
+<p>chgrp 组名 文件名</p>
+<blockquote>
+<p>其他组</p>
+</blockquote>
+<p>除去文件所有者和所在组的用户外，系统的其他用户都是文件的其他组</p>
+<p><strong>改变用户所在组</strong></p>
+<p>usermod -g 组名 用户名</p>
+<p>usermod -d 目录名 用户名 改变用户登录的初始目录</p>
+<p>####3.8.2权限</p>
+<p><strong>输出的ls -l 的详解</strong></p>
+<blockquote>
+<p>文件的类型</p>
+</blockquote>
+<p>-普通文件</p>
+<p>d: 目录文件</p>
+<p>l: 软链接文件</p>
+<p>c: 字符设备文件  如键盘，鼠标</p>
+<p>b: 块文件  如硬盘</p>
+<blockquote>
+<p>文件类型后的字符表示文件拥有者的权限</p>
+</blockquote>
+<p>r 读  w 写 - 没有权限  x</p>
+<blockquote>
+<p>之后的字符表示 文件所在组的用户拥有的权限</p>
+</blockquote>
+<p>r–  只有读 </p>
+<blockquote>
+<p>文件的其他组拥有的权限</p>
+</blockquote>
+<p>r– 只有读</p>
+<blockquote>
+<p>字符后的数字</p>
+</blockquote>
+<p>若是文件，表示硬链接的数</p>
+<p>若是目录，表示该目录的子目录的数量，不包含文件</p>
+<blockquote>
+<p>文件所有者</p>
+</blockquote>
+<blockquote>
+<p>文件所在组</p>
+</blockquote>
+<blockquote>
+<p>文件大小，单位是字节，若是目录，显示4096</p>
+</blockquote>
+<blockquote>
+<p>文件最后的需改时间</p>
+</blockquote>
+<blockquote>
+<p>文件名</p>
+</blockquote>
+<p>&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;</p>
+<blockquote>
+<p>rwx权限详解</p>
+</blockquote>
+<p>可用数字来表示rwx  r&#x3D;4 w&#x3D;2 x&#x3D;1  rwx&#x3D;4+2+1&#x3D;7</p>
+<p><strong>rwx作用到文件</strong></p>
+<ul>
+<li>r  代表可读</li>
+<li>w 代表可以修改但是不代表可以删除，删除一个文件的前提条件是拥有写的条件</li>
+<li>x 表示可被执行</li>
+</ul>
+<p><strong>rwx作用到目录</strong></p>
+<ul>
+<li>r 代表可读   ls查看目录内容</li>
+<li>w 代表可以修改，目录内创建+删除，重命名目录</li>
+<li>x代表可执行，可以进入到该目录</li>
+</ul>
+<h4 id="3-8-3修改权限"><a href="#3-8-3修改权限" class="headerlink" title="3.8.3修改权限"></a>3.8.3修改权限</h4><p>chmod  来修改权限</p>
+<blockquote>
+<p>+，-，&#x3D;变更权限</p>
+</blockquote>
+<p>u：所有者 g：所在组  o：其他人 a所有人（u+g+o）</p>
+<p>chmod  u&#x3D;rwx，g&#x3D;rx，o&#x3D;x 文件目录名</p>
+<p>chmod  o+w  文件目录名           加上权限</p>
+<p>chmod  a-x  文件目录名             减去权限</p>
+<blockquote>
+<p>通过数字来修改权限</p>
+</blockquote>
+<p>chmod u&#x3D;rwx，g&#x3D;rx，o&#x3D;x 文件名</p>
+<p>相当于 chmod  751文件名</p>
+<blockquote>
+<p>修改文件所有者</p>
+</blockquote>
+<p>chown newowner file 修改文件所有者</p>
+<p>chown newowner:newgroup file   改变文件所有者与组</p>
+<p>-R 如果是目录，则使其下所有子文件或目录递归生效</p>
+<blockquote>
+<p>改变文件所在组</p>
+</blockquote>
+<p>前面有</p>
+<h3 id="3-9定时任务调度"><a href="#3-9定时任务调度" class="headerlink" title="3.9定时任务调度"></a>3.9定时任务调度</h3><blockquote>
+<p>crond</p>
+</blockquote>
+<p>crontab 选项</p>
+<table>
+<thead>
+<tr>
+<th>-e</th>
+<th>编辑任务</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>-l</td>
+<td>查询任务</td>
+</tr>
+<tr>
+<td>-r</td>
+<td>删除所有任务</td>
+</tr>
+</tbody></table>
+<p>复杂业务写脚本，简单命令直接编写</p>
+<ul>
+<li>crontab -e</li>
+<li><em>&#x2F;1</em>*** ls -l &#x2F;etc&gt;&gt;&#x2F;tmp&#x2F;to.txt</li>
+<li>保存退出后生效</li>
+</ul>
+<p>###3.A磁盘分区与挂载</p>
+<p>####3.A.1分区基础知识</p>
+<blockquote>
+<p>mbr分区</p>
+</blockquote>
+<ul>
+<li>最多支持4个主分区</li>
+<li>系统只能放在区分区中</li>
+<li>拓展分区要占一个主分区</li>
+<li>MBR最大只支持2TB，但是拥有很好的兼容性</li>
+</ul>
+<blockquote>
+<p>gtp分区</p>
+</blockquote>
+<ul>
+<li>支持无限的分区（但是操作系统会限制数量，Windows限制在128）</li>
+<li>最大支持18Eb的容量 （EB&#x3D;1024PB，PB&#x3D;1024TB）</li>
+<li>windows7 x64支持gtp</li>
+</ul>
+<blockquote>
+<p>windows下的磁盘分区</p>
+</blockquote>
+<p>主分区+扩展分区</p>
+<blockquote>
+<p>Linux分区</p>
+</blockquote>
+<p>Linux无论有几个分区，分给哪一个目录去使用，它归根结底只有1个根目录，一个独立的且唯一的文件结构，：Linux的每一个分区都是用来组成整个文件系统的一部分</p>
+<p>Linux采取一种叫做载入的处理方法，它的整个文件系统包含了一整套的文件和目录，且将一个分区和一个目录联系在一起，这是要载入的一个分区将使它的储存空间在一个目录下获取</p>
+<blockquote>
+<p>Linux下的硬盘</p>
+</blockquote>
+<p>Linux硬盘分为IDE硬盘和SCSI硬盘，目前基本上是SCSI硬盘</p>
+<p>后者性能更高</p>
+<p>对于IDE硬盘，驱动器标识符为hdx~，其中hd表明分区所在的设备的类型，这里是指IDE硬盘，x代表盘号（a为基本盘，b为基本从属盘，c为辅助盘，d是辅助从属盘，字母一般与数字挂钩）， ~代表分区，前4个分区用数字1-4表示，他们是主分区或拓展分区，从5就是逻辑分区。例如hda3代表第一个IDE硬盘上的的3个主分区或拓展分区，hdb2代表IDE硬盘上的第二个硬盘上的第2个分区</p>
+<p>对于SCSI而言，标识符是sdx SCSI硬盘是用sd来区分所在设备的类型，其余与IDE的表示相同</p>
+<p>lsblk -f    查看挂载情况</p>
+<p>lsblk  可查看大小</p>
+<p>####3.A.2给Linux挂载硬盘</p>
+<ul>
+<li>虚拟机添加硬盘</li>
+<li>添加分区 fdisk &#x2F;dev&#x2F;sdb</li>
+<li>格式化 mkfs -t ext4  &#x2F;dev&#x2F;sdb1</li>
+<li>挂载 创建一个目录 &#x2F;home&#x2F;newdisk</li>
+</ul>
+<p>mount &#x2F;dev&#x2F;sdb1 &#x2F;home&#x2F;newdisk</p>
+<p>这种挂载存在问题，是临时挂载，重启销毁</p>
+<ul>
+<li>设置可以自动挂载</li>
+</ul>
+<p>编辑文件 vim &#x2F;etc&#x2F;fstab            记录了分区与挂载点的情况</p>
+<p>编辑后输入mount -a即可自动挂载</p>
+<h4 id="3-A-3磁盘情况查询"><a href="#3-A-3磁盘情况查询" class="headerlink" title="3.A.3磁盘情况查询"></a>3.A.3磁盘情况查询</h4><blockquote>
+<p>查询系统整体磁盘使用情况</p>
+</blockquote>
+<p>df -h</p>
+<blockquote>
+<p>查询指定目录的磁盘使用情况</p>
+</blockquote>
+<p>du -h</p>
+<p>查询指定目录的磁盘占用情况，默认是当前目录</p>
+<p>-s 指定目录占有大小汇总</p>
+<p>-h 带计量单位</p>
+<p>-a 含文件</p>
+<p>-max-depth&#x3D;1 子目录深度  深度是指子目录的级数</p>
+<p>-c列出明细的同时，增加汇总量</p>
+<p>du -ach –max-depth&#x3D;1 &#x2F;opt  查询opt下深度是1 的汇总</p>
+<blockquote>
+<p>常用命令</p>
+</blockquote>
+<p><strong>统计文件夹下目录个数</strong></p>
+<p>ls -l &#x2F;home  | grep “^-“ | wc -l               wc是指统计的命令  grep “^-“以-开头</p>
+<p><strong>统计文件夹下文件个数</strong></p>
+<p>ls -l &#x2F;home  | grep “^d” | wc -l   </p>
+<p><strong>统计文件夹下文件个数包含子文件夹下的</strong></p>
+<p>ls -lR’ &#x2F;home  | grep “^d” | wc -l   </p>
+<p><strong>统计文件夹下目录个数包含子目录下</strong></p>
+<p>ls -lR &#x2F;home  | grep “^-“ | wc -l  </p>
+<p><strong>以树形显示目录结构</strong></p>
+<p>yum install tree  安装</p>
+<p>tree 执行</p>
+<p>###3.B 网络配置</p>
+<p>####3.B.1原理</p>
+<blockquote>
+<p>NAT模式</p>
+</blockquote>
+<p>LInux会出现一个虚拟网卡，保证内部网络通信</p>
+<p>主机上有一张真实网卡，用于外界通信</p>
+<p>####3.B.2解决动态IP问题</p>
+<p>直接在虚拟机上修改</p>
+<p>####3.B.3 查看网关</p>
+<p>####3.B.4ping测试主机之间网络连通性</p>
+<p>ping 目的主机 （测试当前服务期是否可以连接目的主机）</p>
+<p>####3.B.5 LInux网络环境配置</p>
+<blockquote>
+<p>自动获取IP</p>
+</blockquote>
+<p>系统首选项网络连接编辑，调整自动链接</p>
+<p>存在缺点，自动配置的IP可能不一样，不适用与做服务器</p>
+<blockquote>
+<p>指定固定的IP，通过文件配置修改</p>
+</blockquote>
+<p>编辑 vim &#x2F;etc&#x2F;sysconfig&#x2F;network-scripts&#x2F;ifcfg-eth0  文件</p>
+<p>ONBOOT&#x3D;yes</p>
+<p>BOOTPROTO&#x3D;  值改成static      这个值是指静态获取IP与否的配置</p>
+<p>IPADDR改称自己设置的IP地址</p>
+<p>service network restart 重启网络服务</p>
+<h3 id="3-C进程管理"><a href="#3-C进程管理" class="headerlink" title="3.C进程管理"></a>3.C进程管理</h3><h4 id="3-C-1进程概念"><a href="#3-C-1进程概念" class="headerlink" title="3.C.1进程概念"></a>3.C.1进程概念</h4><p>在LInux中，每个执行的程序都被称为一个进程，每个进程都分配一个ID号</p>
+<p>LInux的父进程是init进程</p>
+<p>每个进程，都会对应一个父进程，问这个父进程可以不复制多个子进程（ruwww服务器）</p>
+<p>每个进程可以以两种形式存在，前台与后台所谓前台进程就是用户目前屏幕上可以进程操作的，后台进程是实际在操作，但是屏幕上是无法看见的</p>
+<p>一般系统的服务但是后台方式进行的，而且都会常驻在系统中，知道关机才会结束</p>
+<blockquote>
+<p>进程指令</p>
+</blockquote>
+<p>ps 选项</p>
+<p>以下不是选项，仅代表含义</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td>UID</td>
+<td>用户ID</td>
+</tr>
+<tr>
+<td>PID</td>
+<td>进程识别号</td>
+</tr>
+<tr>
+<td>PPID</td>
+<td>父进程ID</td>
+</tr>
+<tr>
+<td>C</td>
+<td>CPU用于执行进程的优先级，数值越大，执行优先级越高</td>
+</tr>
+<tr>
+<td>STIME</td>
+<td>进程启动时间</td>
+</tr>
+<tr>
+<td>TTY</td>
+<td>终端机号</td>
+</tr>
+<tr>
+<td>TIME</td>
+<td>此进程所消耗CPU总计时间</td>
+</tr>
+<tr>
+<td>CMD</td>
+<td>正在执行的命令或进程</td>
+</tr>
+<tr>
+<td>%MEM</td>
+<td>占用内存的情况</td>
+</tr>
+<tr>
+<td>VSZ</td>
+<td>占用虚拟内存情况</td>
+</tr>
+<tr>
+<td>RSS</td>
+<td>占用物理内存的情况</td>
+</tr>
+<tr>
+<td>TTY</td>
+<td>终端号</td>
+</tr>
+<tr>
+<td>STAT</td>
+<td>当前运行状态  S休眠  R 运行</td>
+</tr>
+<tr>
+<td>START</td>
+<td>启动时间</td>
+</tr>
+<tr>
+<td>COMMAND</td>
+<td>进程启用的命令行</td>
+</tr>
+</tbody></table>
+<p>ps -a 显示当前终端的所有进程信息</p>
+<p>ps -u 以用户的格式显示进程信息</p>
+<p>ps -x 显示后台进程运行的参数</p>
+<p>ps -ef 全格式显示进程</p>
+<p>获得ssd的进程信息     ps -ef | grep ssd</p>
+<p>####3.C.2终止进程</p>
+<blockquote>
+<p>lkill  和killall</p>
+</blockquote>
+<p>kill 选项 进程号（通过选项来杀死进程）</p>
+<p>killall 进程名称  （通过进程名称杀死进程也支持通配符，用于系统负载较大时）</p>
+<p>-9   表示强迫进程立即结束</p>
+<p>sshd登录服务，关闭后无法远程登录</p>
+<p>停止父进程，子进程也全部关闭</p>
+<p>终端杀死需要-9强制删除    &#x2F;bin&#x2F;bash  即代表终端</p>
+<blockquote>
+<p> pstree   </p>
+</blockquote>
+<p> pstree  选项</p>
+<p>以树形显示进程信息</p>
+<p>-p 显示进程的PID </p>
+<p>-u  显示进程的所属用户</p>
+<h4 id="3-C-3服务管理"><a href="#3-C-3服务管理" class="headerlink" title="3.C.3服务管理"></a>3.C.3服务管理</h4><p>服务本质是进程，但是是运行在后台的，通常会监听某个终端（监视某一端口来实现），等待其他程序的请求因此我们又称为守护进程，即为重要</p>
+<blockquote>
+<p>service</p>
+</blockquote>
+<p>service 服务名 star | stop | restart |reload |status</p>
+<p>在CentOS7.0之后，更换指令   systemctl 用法几乎相同</p>
+<p>但是方式只是临时操作，重启将会复原永久操作应使用 chkconfig</p>
+<p>关闭防火墙 </p>
+<p>service iptables status  查看防火墙状态信息</p>
+<p>service iptables stop    关闭防火墙</p>
+<p>service iptables restart 重启防火墙</p>
+<blockquote>
+<p>在windows中检测服务是否开启</p>
+</blockquote>
+<p>telnet IP地址 端口号    检测是否服务是否开启</p>
+<p>在cmd命令行</p>
+<blockquote>
+<p>查看服务名</p>
+</blockquote>
+<p>setup   中的系统服务</p>
+<p>&#x2F;etc&#x2F;init.d&#x2F;服务名称</p>
+<blockquote>
+<p>服务的运行级别</p>
+</blockquote>
+<p>vi  &#x2F;etc&#x2F;inittab  查看运行级别</p>
+<p>前面有，与系统运行级别,但是CentOS7似乎更改了</p>
+<p>每个服务可以指定不同运行级别下自己的启用操作</p>
+<blockquote>
+<p>开机流程</p>
+</blockquote>
+<p>开机-&gt;BIOS-&gt;&#x2F;boot-&gt;init进程1-&gt;运行级别-&gt;运行级别对应的服务</p>
+<blockquote>
+<p>chkconfig</p>
+</blockquote>
+<p>通过chkconfig可以命令给各个运行级别设置自启动&#x2F;关闭</p>
+<p>&#x3D;&#x3D;我的理解是：服务的运行级别是指在系统运行级别的前提下，分别设置其运行操作，其依附于系统运行级别，而不是单独设置的概念&#x3D;&#x3D;</p>
+<p>基本语法 </p>
+<p>chkconfig –list 查看所有</p>
+<p>chkconfig –list |grep xxx    过滤查看</p>
+<p>chkconfig 服务名 –list        也可以指定查看，过滤查看</p>
+<p>chkconfig –level 5 服务名 on&#x2F;off</p>
+<p>####3.C.4监控服务</p>
+<blockquote>
+<p>top</p>
+</blockquote>
+<p>top与ps指令很相似，它用于显示正在执行的进程，top与ps的最大区别就是top在执行一段时间后可以更新正在运行的进程（会显示一段时间内的状态）</p>
+<p>top 选项</p>
+<p>选项</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td>-d 秒数</td>
+<td>指定top更新的时间，默认是3秒。在top指令的交互模式中可以执行的命令</td>
+</tr>
+<tr>
+<td>-i</td>
+<td>使top不显示任何闲置或僵死进程</td>
+</tr>
+<tr>
+<td>-p</td>
+<td>通过指定监控进度ID来获取某个进程的状态</td>
+</tr>
+</tbody></table>
+<p>交互模式</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td>P</td>
+<td>以CPU使用率排序，默认</td>
+</tr>
+<tr>
+<td>M</td>
+<td>以内存使用率排序</td>
+</tr>
+<tr>
+<td>N</td>
+<td>以PID排序</td>
+</tr>
+<tr>
+<td>q</td>
+<td>退出</td>
+</tr>
+</tbody></table>
+<p>输入top 会进入动态界面</p>
+<p>动态页面信息</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td>top</td>
+<td>当前时间</td>
+</tr>
+<tr>
+<td>up</td>
+<td>运行时间</td>
+</tr>
+<tr>
+<td>users</td>
+<td>登录数</td>
+</tr>
+<tr>
+<td>load average</td>
+<td>负载均衡</td>
+</tr>
+<tr>
+<td>Task</td>
+<td>任务</td>
+</tr>
+<tr>
+<td>CPU</td>
+<td>占有率</td>
+</tr>
+<tr>
+<td>Mem</td>
+<td>内存使用情况</td>
+</tr>
+<tr>
+<td>Swap</td>
+<td>虚拟内存</td>
+</tr>
+</tbody></table>
+<p>监视特定用户</p>
+<p>top  回车</p>
+<p>输入u  回车   输入用户名  回车，即可查看</p>
+<p>终止指定进程</p>
+<p>top 回车</p>
+<p>k 回车  输入进程ID 回车</p>
+<h4 id="3-C-5网络监控"><a href="#3-C-5网络监控" class="headerlink" title="3.C.5网络监控"></a>3.C.5网络监控</h4><p>netstat 选项</p>
+<p>-an 按一定顺序排列输出</p>
+<p>-p 显示那个进程在调用</p>
+<h3 id="3-D-rpm包的管理"><a href="#3-D-rpm包的管理" class="headerlink" title="3.D rpm包的管理"></a>3.D rpm包的管理</h3><blockquote>
+<p>介绍</p>
+</blockquote>
+<p>一种用于互联网下载打包与安装工具，它包含在某些Linux分发版里，它生成的具有.RPM拓展名文件。RPM死RedHat Package Manager 的缩写，类似windows中setup.exe，这一理念虽然打上了RedHat的标志，但理念是通用的</p>
+<p>Linux的方法版本都有采用（suse，redhat，centos等），是业内公认的行业标准</p>
+<blockquote>
+<p>查看已经安装的rpm列表</p>
+</blockquote>
+<p>rpm -qa | grep xx</p>
+<p>rpm -qa | grep firefox  查询是否安装了火狐</p>
+<p>查询结果</p>
+<p>rpm基本格式</p>
+<p>软件名 + 版本 +适用于的操作系统 + 位数（nomarch表示通用）</p>
+<p><strong>其他指令</strong></p>
+<p>rpm -qa 查询所有安装的rpm软件包</p>
+<p>rpm  -qa | more  分页显示</p>
+<p>rpm -qa | grep xxx 指定查询</p>
+<p>rpm -q  软件包名      查询是否安装</p>
+<p>rpm -qi 软包名  查询软件包信息</p>
+<p>rpm -qi file</p>
+<p>rpm -ql 软件包名  查询软件包的文件</p>
+<p>rpm -qf 文件全路径   查询文件所属的软件包</p>
+<blockquote>
+<p>卸载rpm包</p>
+</blockquote>
+<p>rpm -e 软件包名称</p>
+<p>rpm -e Firefox 卸除Firefox     </p>
+<p>细节：若其他软件包依赖于要卸载的软件包，会产生错误信息</p>
+<p>解决：rpm -e –nodeps  软件包名称  强制删除</p>
+<blockquote>
+<p>安装rpm包</p>
+</blockquote>
+<p>rpm -ivh 软件包全路径名</p>
+<p>-i 安装</p>
+<p>-v 提示</p>
+<p>-h 进度条</p>
+<p>rpm -ivh Firefox 安装火狐</p>
+<h3 id="3-E-yum"><a href="#3-E-yum" class="headerlink" title="3.E yum"></a>3.E yum</h3><blockquote>
+<p>介绍</p>
+</blockquote>
+<p>yum是一个Shell前端软件包管理器，基于RPM包管理，能够从指定的服务器自动下载RPM包并且安装，可以自动处理依赖关系，并且一次安装所以依赖的软件包</p>
+<blockquote>
+<p>指令</p>
+</blockquote>
+<p>yum list | grep  xxx （软件包列表）  查询yum服务器是否有需要安装的软件</p>
+<p>yum list | grep firefox    查询火狐列表</p>
+<p>yun install xxx 下载安装</p>
+<p>yun install firefox  下载并安装 </p>
+<p>默认会安装最新版本的文件</p>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                
+              </div>
+              
+                <p class="note note-warning">
+                  
+                    本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！
+                  
+                </p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2022/04/02/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3static/">
+                        <span class="hidden-mobile">该细还得细</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+  </div>
+  
+
+  
+
+  
+</footer>
+
+
+  <!-- SCRIPTS -->
+  
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  
+    <script  src="https://cdn.jsdelivr.net/npm/tocbot@4/dist/tocbot.min.js" ></script>
+  
+  
+    <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.js" ></script>
+  
+  
+    <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4/anchor.min.js" ></script>
+  
+  
+    <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js" ></script>
+  
+
+
+
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+        typing(title);
+      
+    })(window, document);
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+</body>
+</html>
