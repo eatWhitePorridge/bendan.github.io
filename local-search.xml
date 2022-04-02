@@ -17,6 +17,19 @@
   
   
   <entry>
+    <title>JUC多线程</title>
+    <link href="/2022/04/02/JUC%E5%A4%9A%E7%BA%BF%E7%A8%8B/"/>
+    <url>/2022/04/02/JUC%E5%A4%9A%E7%BA%BF%E7%A8%8B/</url>
+    
+    <content type="html"><![CDATA[<h1 id="JUC多线程"><a href="#JUC多线程" class="headerlink" title="JUC多线程"></a>JUC多线程</h1><p><strong>sleep（）与wait（）的区别</strong></p><p>sleep实现的是线程阻塞，实现线程睡眠</p><p>wait实现的是线程阻塞，实现的是线程等待</p><p>不同之处：</p><ul><li><p>sleep需要传入参数，设置睡眠是时间；wait可以设置时间，也可以不进行设置，但只用通过notify()方法来“唤醒”。</p></li><li><p>sleep的包是Thread包，wait是Object下的方法</p></li><li><p>sleep会释放线程执行权（cpu调度），但是不会释放锁，及资源；wait会释放线程执行权，也会释放锁。</p></li><li><p>sleep可以带任何地方执行，但是wait只可以在同步代码块或者同步方法中实行</p></li></ul><p><strong>并发与并行</strong></p><p>并行：多项工作在同一时间内同时执行，但彼此不争夺资源</p><p>并发：多项工作同一时间执行，同时操作同一资源</p><p><strong>管程</strong></p><p>是一种线程同步机制，确保只有一个线程可以访问数据执行代码</p><p>jvm同步基于进入与退出，使用管层对象是实现</p><p><strong>用户线程与守护线程</strong></p><p>用户线程：自定义的线程</p><p>守护线程：在后台存在执行的线程，如gc回收线程</p><p>如果JVM的所有线程都是守护线程，则jvm会自动退出。</p><p>用户线程是对立存在的，不会被其他线程影响</p><p>守护线程的设置必须在线程启动前进行</p><p>如果主程序退出，但是仍存在其他线程，守护线程不会退出。但是如果主程序无其他线程，则守护线程退出</p><p><strong>Lock与synchronized的区别</strong></p><p>Lock的锁的开关需要自己代码实现，synchronized锁的开闭自动实现</p><p>在代码执行时若出现异常synchronized会释放锁，但是Lock并不会，必须出现unlock方法来实现解锁</p><p>Lock可以提高多线程间的通信效率</p><p><strong>虚假唤醒</strong></p><p>为保证防止虚假唤醒的情况，应该在线程的wait条件设置循环</p><p><strong>List与Set，HashMAp实现JUC高并发</strong></p><p>CopyOnWriteArrayList是最佳解决方案：实现原理是复制一份原内容，然后进行写操作，若其他线程再次进行写（不包含读操作）操作，则会将这个list与原list合并对照，解决了读写造成的高并发。（被称为读时复制操作    ）</p><p>CopyOnWriteArraySet是最佳解决方案：Hash Set的解决方法</p><p>ConcurrentHashMap是最佳解决方案：HashMap的解决方案</p>]]></content>
+    
+    
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>Hello World</title>
     <link href="/2022/04/01/hello-world/"/>
     <url>/2022/04/01/hello-world/</url>
